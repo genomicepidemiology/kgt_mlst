@@ -10,7 +10,7 @@ def auto_identifiy_species(arguments):
                   arguments.output + "/bac_species",
                   arguments.db_dir + "/bac_species_db/bac_species_db",
                   "-mem_mode -1t1 -t 8").run()
-    name = input[0].split('.')[0]
+    name = input[0].split('/')[-1].split('.')[0]
     print (arguments.output + '/' + name + '.res')
     sys.exit()
     with open(arguments.output + '/' + name + '.res', 'r') as f:
