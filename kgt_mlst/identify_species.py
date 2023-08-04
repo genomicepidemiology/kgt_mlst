@@ -5,6 +5,7 @@ from kgt_mlst import kma
 
 def auto_identifiy_species(arguments):
     input_string = " ".join(arguments.input)
+    print (input_string)
     kma.KMARunner(input_string,
                   arguments.output + "/bac_species",
                   arguments.db_dir + "/bac_species_db/bac_species_db",
