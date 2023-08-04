@@ -5,6 +5,7 @@ import subprocess
 from kgt_mlst import identify_species
 
 def determine_mlst(arguments):
+    os.system("mkdir -p {0}".format(arguments.output))
     specie = identify_species.auto_identifiy_species(arguments)
     print (specie)
     sys.exit()
