@@ -39,12 +39,13 @@ def main():
 
 
 def download_db(arguments):
-    os.system("git clone https://bitbucket.org/genomicepidemiology/mlst_db.git mlst_db".format(arguments.output))
-    file_list = os.listdir('mlst_db')
+    os.system('mkdir kgt_mlst_db')
+    os.system("git clone https://bitbucket.org/genomicepidemiology/mlst_db.git kgt_mlst_db/mlst_db".format(arguments.output))
+    file_list = os.listdir('kgt_mlst_db/mlst_db')
     for species in file_list:
-        if os.path.exists('mlst_db/{0}/{0}.fsa'.format(species)):
+        if os.path.exists('kgt_mlst_db/mlst_db/{0}/{0}.fsa'.format(species)):
             os.system(
-                "kma index -i mlst_db/{0}/{0}.fsa -o mlst_db/{0}/{0} -m 14".format(
+                "kma index -i kgt_mlst_db/mlst_db/{0}/{0}.fsa -o kgt_mlst_db/mlst_db/{0}/{0} -m 14".format(
                     species, species))
 
 if __name__ == '__main__':
