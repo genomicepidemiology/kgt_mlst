@@ -40,16 +40,16 @@ def main():
 
 def download_db(arguments):
     os.system('mkdir kgt_mlst_db')
-    #os.system("git clone https://bitbucket.org/genomicepidemiology/mlst_db.git kgt_mlst_db/mlst_db".format(arguments.output))
-    #file_list = os.listdir('kgt_mlst_db/mlst_db')
-    #for species in file_list:
-    #    if os.path.exists('kgt_mlst_db/mlst_db/{0}/{0}.fsa'.format(species)):
-    #        os.system(
-    #            "kma index -i kgt_mlst_db/mlst_db/{0}/{0}.fsa -o kgt_mlst_db/mlst_db/{0}/{0} -m 14".format(
-    #                species, species))
+    os.system("git clone https://bitbucket.org/genomicepidemiology/mlst_db.git kgt_mlst_db/mlst_db".format(arguments.output))
+    file_list = os.listdir('kgt_mlst_db/mlst_db')
+    for species in file_list:
+        if os.path.exists('kgt_mlst_db/mlst_db/{0}/{0}.fsa'.format(species)):
+            os.system(
+                "kma index -i kgt_mlst_db/mlst_db/{0}/{0}.fsa -o kgt_mlst_db/mlst_db/{0}/{0} -m 14".format(
+                    species, species))
 
-    os.system("wget https://cge.food.dtu.dk/services/MINTyper/bac_species_db kgt_mlst_db/bac_species_db")
-    os.system("tar -xvzf kgt_mlst_db/bac_species_db -C kgt_mlst_db/bac_species_db")
+    #os.system("wget https://cge.food.dtu.dk/services/MINTyper/bac_species_db kgt_mlst_db/bac_species_db")
+    #os.system("tar -xvzf kgt_mlst_db/bac_species_db -C kgt_mlst_db/bac_species_db")
     #Download bac_db
 
 if __name__ == '__main__':
