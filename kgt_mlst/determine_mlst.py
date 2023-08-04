@@ -6,10 +6,9 @@ from kgt_mlst import identify_species
 
 def determine_mlst(arguments):
     os.system("mkdir -p {0}".format(arguments.output))
-    specie = identify_species.auto_identifiy_species(arguments)
+    header = identify_species.auto_identifiy_species(arguments)
+    specie = header.split(" ")[1][0].lower() + "_" + header.split(" ")[2].lower()
     print (specie)
-    sys.exit()
-
 def get_mlst_type(arguments, res_file, mlst_species):
     """Returns the mlst results"""
     mlst_genes, mlst_genes_depths = parse_kma_res_and_depth(res_file)
