@@ -9,7 +9,7 @@ def auto_identifiy_species(arguments):
                   arguments.output + "/bac_species",
                   arguments.db_dir + "/bac_species_db/bac_species_db",
                   "-mem_mode -1t1 -t 8 -Sparse").run()
-    with open(arguments.output + '/bac_species.res', 'r') as f:
+    with open(arguments.output + '/bac_species.spa', 'r') as f:
         best_score = 0
         for line in f:
             if not line.startswith('#'):
