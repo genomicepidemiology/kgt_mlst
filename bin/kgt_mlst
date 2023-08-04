@@ -7,46 +7,45 @@ import os
 
 sys.path = [os.path.join(os.path.dirname(os.path.realpath(__file__)),'..')] + sys.path
 
-from kmergenetyper import version
+from kgt_mlst import version
 
 __author__ = "Malte B. Hallgren"
 __version__ = version.__version__
 
-from kmergenetyper import typeGenes
+from kgt_mlst import determine_mlst
 
 def main():
     description = 'K-mer Gene Typer. A tool for accurately typing genes from' \
                   ' Illumina and Nanopore sequencing data.'
 
     parser = argparse.ArgumentParser(description=description)
-    parser.add_argument('-illumina', action="store", type=str, dest='illumina', nargs="+",
-                        default=[], help='Illumina input files. Must be paired-end.')
-    parser.add_argument('-nanopore', action="store", type=str, dest='nanopore', nargs="+",
-                        default=[], help='Nanopore input files.')
-    parser.add_argument('-fasta', action="store", type=str, dest='fasta', nargs="+",
-                        default=[], help='fasta input files.')
-    parser.add_argument('-md', action="store", type=float, default=5.0, dest='md',
-                        help='Minimum depth. Default: 5.0')
-    parser.add_argument('-t', action="store", type=int, default=4, dest='threads',
-                        help='Number of threads. Default: 4')
-    parser.add_argument('-t_db', action="store", type=str, dest='t_db', help='KMA indexed database')
+    parser.add_argument('-i', action="store", type=str, dest='input', nargs='+',
+                        default=None, help='Input file.')
+    parser.add_argument('-res_file', action="store", type=str, dest='res_file',
+                        default=None, help='Kmergenetyper res file.')
+    parser.add_argument('-db_dir', action="store", type=str, dest='db_dir',
+                        default=None, help='Path to where the kgt_mlst database is located.')
     parser.add_argument('-o', action="store", type=str, dest='output', help='Output directory')
-    parser.add_argument('-q', action="store", type=int, default=8, dest='q_score',
-                        help='Minimum q-score. Default: 8')
-    parser.add_argument('-keep', action="store_true", dest='keep', help='Keep intermediate gene files.')
+    parser.add_argument('--download_db', action="store_true", dest='download_db',
+                        default=False, help='Download the kgt_mlst database.')
     parser.add_argument('-v', '--version', action='version', version='%(prog)s ' + __version__)
 
     args = parser.parse_args()
 
-    if args.illumina != []:
-        check_illumina_pe(args.illumina)
+    if args.download_db:
+        download_db(args)
+    else:
+        determine_mlst.determine_mlst(args)
 
-    typeGenes.type_genes(args)
 
-
-def check_illumina_pe(files):
-    if len(files) % 2 != 0:
-        sys.exit('Error: Illumina files must be paired-end. Exiting.')
+def download_db(arguments):
+    os.system("git clone https://bitbucket.org/genomicepidemiology/mlst_db.git mlst_db".format(arguments.output))
+    file_list = os.listdir('mlst_db')
+    for species in file_list:
+        if os.path.exists('mlst_db/{0}/{0}.fsa'.format(species)):
+            os.system(
+                "kma index -i mlst_db/{0}/{0}.fsa -o mlst_db/{0}/{0} -m 14".format(
+                    species, species))
 
 if __name__ == '__main__':
     main()

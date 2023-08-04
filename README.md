@@ -1,16 +1,22 @@
-# kmergenetyper (k-mer gene typer)
+# kgt_mlst (k-mer gene typer)
 
 # Installation
 
-kmergenetyper typer requires kma (>=1.4.0) to be installed and usable directly from path (i.e. $kma).
+kgt_mlst typer requires kma (>=1.4.9) to be installed and usable directly from path (i.e. $kma).
 This can be done by installing kma from source or using conda:
 
-`conda create -n kmergenetyper -f kmergenetyper.yml`
+`conda create -n kgt_mlst -f kgt_mlst.yml`
 
-`conda activate kmergenetyper`
+`conda activate kgt_mlst`
 
-`pip install kmergenetyper`
+`pip install kgt_mlst`
 
 # Usage
 
-`kmergenetyper -h`
+`kgt_mlst -h`
+
+# Database download
+
+The following command will download the kgt_mlst database to your current working directory:
+
+`kgt_mlst --download_db`
