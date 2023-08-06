@@ -18,7 +18,7 @@ def auto_identifiy_species(arguments):
                 if score > best_score:
                     best_score = score
                     best_line = line.split('\t')[0]
-                    genome_size = int(line.split('\t')[4])
+                    genome_size = int(line.split('\t')[3])
 
     return best_line, genome_size
 
