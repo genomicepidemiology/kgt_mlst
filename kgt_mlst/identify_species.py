@@ -15,6 +15,7 @@ def auto_identifiy_species(arguments):
         for line in f:
             if not line.startswith('#'):
                 score = float(line.split('\t')[1])
+                print (score)
                 if score > best_score:
                     best_score = score
                     best_line = line.split('\t')[0]
