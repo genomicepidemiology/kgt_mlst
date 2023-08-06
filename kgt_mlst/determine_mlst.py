@@ -14,7 +14,7 @@ def determine_mlst(arguments):
     input_string = " ".join(arguments.input)
     name = arguments.input[0].split('/')[-1].split('.')[0]
     if not os.path.exists(arguments.db_dir + '/mlst_db/{0}/{0}.fsa'.format(arguments.species)):
-        print (name, arguments.species, "Species not found in database")
+        print (name, "Species not found in mlst database", header)
         sys.exit()
     kmergenetyper.kmergenetyperRunner(input_string,
                         arguments.db_dir + '/mlst_db/{0}/{0}'.format(arguments.species),
