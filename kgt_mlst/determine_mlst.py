@@ -72,10 +72,10 @@ def derive_mlst(species, found_genes, template_depth, db_dir):
     else:
         return 'Unknown ST', expected_genes, []
 
-def derive_mlst_species(reference_header_text):
+def derive_mlst_species(reference_header_text, db_dir):
     specie = reference_header_text.split(' ')[1] + ' ' + reference_header_text.split(' ')[2]
     mlst_species = reference_header_text.split(' ')[1][0].lower() + reference_header_text.split(' ')[2].lower()
-    with open("/opt/lpf_databases/mlst_db/config", 'r') as infile:
+    with open("/{}/mlst_db/config".format(db_dir), 'r') as infile:
         for line in infile:
             if line[0] != "#":
                 line = line.split("\t")
