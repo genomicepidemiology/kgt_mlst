@@ -27,10 +27,10 @@ def get_mlst_type(arguments, res_file):
     mlst_genes, mlst_genes_depths = parse_kma_res_and_depth(res_file)
     print (mlst_genes)
     print (mlst_genes_depths)
-    sys.exit()
     mlst_type, expected_genes, st_included_mlst_genes = derive_mlst(
-        mlst_species, mlst_genes, mlst_genes_depths)
+        arguments.species, mlst_genes, mlst_genes_depths)
 
+    print (mlst_type, expected_genes, st_included_mlst_genes)
 
 def check_allele_template_coverage(mlst_genes, template_depth, found_genes):
     """
