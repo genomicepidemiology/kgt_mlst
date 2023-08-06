@@ -24,28 +24,28 @@ def determine_mlst(arguments):
 
 def get_mlst_type(arguments, res_file):
     """Returns the mlst results"""
-    mlst_genes, mlst_genes_depths = parse_kma_res_and_depth(res_file)
+    mlst_genes, mlst_genes_depths, mlst_genes_coverage = parse_kma_res_and_depth(res_file)
     mlst_type, expected_genes, st_included_mlst_genes = derive_mlst(
-        arguments.species, mlst_genes, mlst_genes_depths, arguments.db_dir)
+        arguments.species, mlst_genes, mlst_genes_depths, arguments.db_dir, mlst_genes_coverage)
 
     print (mlst_type)
 
-def check_allele_template_coverage(mlst_genes, template_depth, found_genes):
+def check_allele_template_coverage(mlst_genes, template_coverage, found_genes):
     """
     Checks if the allele depth is above 100 else returns false
     :param mlst_genes:
-    :param template_depth:
+    :param template_coverage:
     :param found_genes:
     :return:
     """
     flag = True
     for i in range(len(found_genes)):
         if found_genes[i] in mlst_genes:
-            if float(template_depth[i]) < 100:
+            if float(template_coverage[i]) < 100:
                 flag = False
     return flag
 
-def derive_mlst(species, found_genes, template_depth, db_dir):
+def derive_mlst(species, found_genes, template_depth, db_dir, mlst_genes_coverage):
     """Returns the mlst results"""
     with open(db_dir + '/mlst_db/config', 'r') as fd:
         for line in fd:
@@ -65,7 +65,7 @@ def derive_mlst(species, found_genes, template_depth, db_dir):
             mlst_type += '+'
         else:
             mlst_type = look_up_mlst("{0}/mlst_db/{1}/{1}.tsv".format(db_dir, species), mlst_genes, expected_genes)
-        if not check_allele_template_coverage(mlst_genes, template_depth, found_genes):
+        if not check_allele_template_coverage(mlst_genes, mlst_genes_coverage, found_genes):
             mlst_type += '*'
         return mlst_type, expected_genes, list(mlst_genes)
     else:
@@ -135,12 +135,14 @@ def check_for_kma():
 def parse_kma_res_and_depth(file):
     genes = []
     template_depth = []
+    coverage = []
     with open(file, 'r') as f:
         for line in f:
             if not line.startswith('#'):
                 genes.append(line.strip().split('\t')[0])
                 template_depth.append(line.strip().split('\t')[-3])
-    return genes, template_depth
+                coverage.append(line.strip().split('\t')[5])
+    return genes, template_depth, coverage
 
 def number_of_bases_in_file(filename):
     """Returns the number of bases in a file"""
