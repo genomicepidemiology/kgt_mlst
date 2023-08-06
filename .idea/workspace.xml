@@ -4,11 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="910aba2a-09a8-4bab-a521-546fd255f3c5" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/kgt_mlst" beforeDir="false" afterPath="$PROJECT_DIR$/bin/kgt_mlst" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kgt_mlst/determine_mlst.py" beforeDir="false" afterPath="$PROJECT_DIR$/kgt_mlst/determine_mlst.py" afterDir="false" />
-    </list>
+    <list default="true" id="910aba2a-09a8-4bab-a521-546fd255f3c5" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -47,7 +43,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1691135418136</updated>
-      <workItem from="1691135419249" duration="10151000" />
+      <workItem from="1691135419249" duration="10467000" />
     </task>
     <servers />
   </component>
@@ -59,7 +55,7 @@
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/kgt_mlst/determine_mlst.py</url>
-          <line>135</line>
+          <line>136</line>
           <option name="timeStamp" value="1" />
         </line-breakpoint>
       </breakpoints>
