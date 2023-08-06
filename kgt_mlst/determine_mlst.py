@@ -14,14 +14,14 @@ def determine_mlst(arguments):
     input_string = " ".join(arguments.input)
     name = arguments.input[0].split('/')[-1].split('.')[0]
     if not os.path.exists(arguments.db_dir + '/mlst_db/{0}/{0}.fsa'.format(arguments.species)):
-        print (name, "Species not found in mlst database", header)
+        print (name, "Species not found in mlst database", header, sep='\t')
         sys.exit()
     kmergenetyper.kmergenetyperRunner(input_string,
                         arguments.db_dir + '/mlst_db/{0}/{0}'.format(arguments.species),
                         arguments.min_depth, #Insert relative min depth
                         arguments.output + '/mlst').run()
     mlst_type = get_mlst_type(arguments, arguments.output + '/mlst/{}.res'.format(name))
-    print (name, mlst_type, header)
+    print (name, mlst_type, header, sep='\t')
 
 def get_mlst_type(arguments, res_file):
     """Returns the mlst results"""
