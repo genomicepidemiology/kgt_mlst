@@ -8,27 +8,21 @@ from kgt_mlst import kmergenetyper
 
 def determine_mlst(arguments):
     os.system("mkdir -p {0}".format(arguments.output))
-    header, genome_size = identify_species.auto_identifiy_species(arguments)
-    print (header, genome_size)
-    specie = header.split(" ")[1][0].lower() + header.split(" ")[2].lower()
+    if arguments.species == None:
+        header, genome_size = identify_species.auto_identifiy_species(arguments)
+        arguments.species = header.split(" ")[1][0].lower() + header.split(" ")[2].lower()
     input_string = " ".join(arguments.input)
-    if not os.path.exists(arguments.db_dir + '/mlst_db/{0}/{0}.fsa'.format(specie)):
+    if not os.path.exists(arguments.db_dir + '/mlst_db/{0}/{0}.fsa'.format(arguments.species)):
         print ("Species not found in database")
         sys.exit()
-    total_bases = 0
-    for item in arguments.input:
-        total_bases += number_of_bases_in_file(item)
-    relative_minimum_depth = (total_bases / genome_size) * 0.03
-    print (relative_minimum_depth)
+    name = arguments.input[0].split('/')[-1].split('.')[0]
     kmergenetyper.kmergenetyperRunner(input_string,
-                        arguments.db_dir + '/mlst_db/{0}/{0}'.format(specie),
-                        3, #Insert relative min depth
+                        arguments.db_dir + '/mlst_db/{0}/{0}'.format(arguments.species),
+                        arguments.min_depth, #Insert relative min depth
                         arguments.output + '/mlst').run()
+    get_mlst_type(arguments, arguments.output + '/mlst/{}.res'.format(name))
 
-
-    #get_mlst_type(arguments, , specie)
-
-def get_mlst_type(arguments, res_file, mlst_species):
+def get_mlst_type(arguments, res_file):
     """Returns the mlst results"""
     mlst_genes, mlst_genes_depths = parse_kma_res_and_depth(res_file)
     print (mlst_genes)

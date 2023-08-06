@@ -20,9 +20,16 @@ def main():
 
     parser = argparse.ArgumentParser(description=description)
     parser.add_argument('-i', action="store", type=str, dest='input', nargs='+',
-                        default=None, help='Input file.')
+                        default=None, help='Input read file(s).')
+    parser.add_argument('-species', action="store", type=str, dest='species',
+                        default=None, help='Input species following this format:'
+                                           ' first letter of the genus and the entire speices all in lower case letters. '
+                                           'Example: Escherichia coli should be ecoli. Campylobacter jejuni should be cjejuni. '
+                                           'If not species is given species identification will be run - this requires reference bacterial DB to be downloaded with --download_db.')
     parser.add_argument('-db_dir', action="store", type=str, dest='db_dir',
                         default=None, help='Path to where the kgt_mlst database is located.')
+    parser.add_argument('-md', action="store", type=int, dest='min_depth',
+                        default=5, help='Minimum depth of coverage to be considered for mlst alleles.')
     parser.add_argument('-o', action="store", type=str, dest='output', help='Output directory')
     parser.add_argument('--download_db', action="store_true", dest='download_db',
                         default=False, help='Download the kgt_mlst database.')
