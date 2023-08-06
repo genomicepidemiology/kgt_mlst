@@ -11,14 +11,16 @@ def auto_identifiy_species(arguments):
                   "-mem_mode -1t1 -t 8 -Sparse").run()
     with open(arguments.output + '/bac_species.spa', 'r') as f:
         best_score = 0
+        genome_size = 0
         for line in f:
             if not line.startswith('#'):
                 score = float(line.split('\t')[1])
                 if score > best_score:
                     best_score = score
                     best_line = line.split('\t')[0]
+                    genome_size = int(line.split('\t')[4])
 
-    return best_line
+    return best_line, genome_size
 
 
 

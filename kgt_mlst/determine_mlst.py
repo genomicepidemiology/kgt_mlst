@@ -1,13 +1,14 @@
 import os
 import sys
 import subprocess
+import gzip
 
 from kgt_mlst import identify_species
 from kgt_mlst import kmergenetyper
 
 def determine_mlst(arguments):
     os.system("mkdir -p {0}".format(arguments.output))
-    header = identify_species.auto_identifiy_species(arguments)
+    header, genome_size = identify_species.auto_identifiy_species(arguments)
     specie = header.split(" ")[1][0].lower() + header.split(" ")[2].lower()
     input_string = " ".join(arguments.input)
     if not os.path.exists(arguments.db_dir + '/mlst_db/{0}/{0}.fsa'.format(specie)):
@@ -17,7 +18,8 @@ def determine_mlst(arguments):
     for item in arguments.input:
         total_bases += number_of_bases_in_file(item, 'fastq')
     print (total_bases)
-    sys.exit()
+    print (genome_size)
+    relative_minimum_depth = (total_bases / genome_size) * 0.05
     kmergenetyper.kmergenetyperRunner(input_string,
                         arguments.db_dir + '/mlst_db/{0}/{0}'.format(specie),
                         3, #Insert relative min depth
@@ -161,17 +163,15 @@ def parse_kma_res_and_depth(file):
 def number_of_bases_in_file(filename, type):
     #determine type#
     #TBD - add support for gzipped files
+    sum = 0
     if type == 'fasta':
-        sum = 0
         with open(filename, 'r') as f:
             for line in f:
                 if not line.startswith('>'):
                     sum += len(line.strip())
-        return sum
 
     elif type == 'fastq':
         line_count = 1
-        sum = 0
         with open(filename, 'r') as f:
             for line in f:
                 if line_count == 2:
@@ -179,4 +179,14 @@ def number_of_bases_in_file(filename, type):
                 line_count += 1
                 if line_count == 5:
                     line_count = 1
-        return sum
+    elif type == 'fastq.gz':
+        line_count = 1
+        with gzip.open(filename, 'r') as f:
+            for line in f:
+                if line_count == 2:
+                    sum += len(line.strip())
+                line_count += 1
+                if line_count == 5:
+                    line_count = 1
+
+    return sum
