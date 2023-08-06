@@ -16,7 +16,7 @@ def determine_mlst(arguments):
         sys.exit()
     total_bases = 0
     for item in arguments.input:
-        total_bases += number_of_bases_in_file(item, 'fastq')
+        total_bases += number_of_bases_in_file(item)
     print (total_bases)
     print (genome_size)
     relative_minimum_depth = (total_bases / genome_size) * 0.05
@@ -160,7 +160,14 @@ def parse_kma_res_and_depth(file):
                 template_depth.append(line.strip().split('\t')[-3])
     return genes, template_depth
 
-def number_of_bases_in_file(filename, type):
+def number_of_bases_in_file(filename):
+    """Returns the number of bases in a file"""
+    if filename.endswith('.gz'):
+        type = 'fastq.gz'
+    elif filename.endswith('.fastq') or filename.endswith('.fq'):
+        type = 'fastq'
+    elif filename.endswith('.fasta') or filename.endswith('.fa') or filename.endswith('.fna') or filename.endswith('.fsa'):
+        type = 'fasta'
     #determine type#
     #TBD - add support for gzipped files
     sum = 0
