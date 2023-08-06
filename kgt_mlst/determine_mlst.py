@@ -41,7 +41,7 @@ def check_allele_template_coverage(mlst_genes, template_depth, found_genes):
     flag = True
     for i in range(len(found_genes)):
         if found_genes[i] in mlst_genes:
-            if template_depth[i] < 100:
+            if float(template_depth[i]) < 100:
                 flag = False
     return flag
 
