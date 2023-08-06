@@ -3,14 +3,14 @@ import sys
 import subprocess
 
 from kgt_mlst import identify_species
-from kmergenetyper import kmergenetyperRunner
+from kgt_mlst import kmergenetyper
 
 def determine_mlst(arguments):
     os.system("mkdir -p {0}".format(arguments.output))
     header = identify_species.auto_identifiy_species(arguments)
     specie = header.split(" ")[1][0].lower() + header.split(" ")[2].lower()
     input_string = " ".join(arguments.input)
-    kmergenetyperRunner(input_string,
+    kmergenetyper.kmergenetyperRunner(input_string,
                         arguments.db_dir + '/mlst_db/{0}/{0}'.format(specie),
                         3, #Insert relative min depth
                         arguments.output + '/mlst').run()
