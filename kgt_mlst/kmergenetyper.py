@@ -28,5 +28,4 @@ class kmergenetyperRunner():
         if self.illumina:
             kmergenetyper_cmd += " -illumina {}".format(self.illumina)
         self.logger.info("Running kmergenetyper with the following command: {}".format(kmergenetyper_cmd))
-        print (kmergenetyper_cmd)
         os.system(kmergenetyper_cmd)

@@ -20,7 +20,8 @@ def determine_mlst(arguments):
                         arguments.db_dir + '/mlst_db/{0}/{0}'.format(arguments.species),
                         arguments.min_depth, #Insert relative min depth
                         arguments.output + '/mlst').run()
-    get_mlst_type(arguments, arguments.output + '/mlst/{}.res'.format(name))
+    mlst_type = get_mlst_type(arguments, arguments.output + '/mlst/{}.res'.format(name))
+    print (name, mlst_type)
 
 def get_mlst_type(arguments, res_file):
     """Returns the mlst results"""
@@ -28,7 +29,7 @@ def get_mlst_type(arguments, res_file):
     mlst_type, expected_genes, st_included_mlst_genes = derive_mlst(
         arguments.species, mlst_genes, mlst_genes_depths, arguments.db_dir, mlst_genes_coverage)
 
-    print (mlst_type)
+    return mlst_type
 
 def check_allele_template_coverage(mlst_genes, template_coverage, found_genes):
     """
