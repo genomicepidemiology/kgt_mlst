@@ -28,7 +28,7 @@ def get_mlst_type(arguments, res_file):
     print (mlst_genes)
     print (mlst_genes_depths)
     mlst_type, expected_genes, st_included_mlst_genes = derive_mlst(
-        arguments.species, mlst_genes, mlst_genes_depths)
+        arguments.species, mlst_genes, mlst_genes_depths, arguments.db_dir)
 
     print (mlst_type, expected_genes, st_included_mlst_genes)
 
@@ -47,9 +47,9 @@ def check_allele_template_coverage(mlst_genes, template_depth, found_genes):
                 flag = False
     return flag
 
-def derive_mlst(species, found_genes, template_depth):
+def derive_mlst(species, found_genes, template_depth, db_dir):
     """Returns the mlst results"""
-    with open("/opt/lpf_databases/mlst_db/config", 'r') as fd:
+    with open(db_dir + '/mlst_db/config', 'r') as fd:
         for line in fd:
             if line[0] != "#":
                 line = line.rstrip().split("\t")
@@ -62,10 +62,10 @@ def derive_mlst(species, found_genes, template_depth):
             #Simply selecting highest depth hits but gives warning!
             if template_depth != 'skip':
                 mlst_genes = select_highest_depth_alleles(found_genes, template_depth, expected_genes, multiple_allele_list)
-            mlst_type = look_up_mlst("/opt/lpf_databases/mlst_db/{0}/{0}.tsv".format(species), mlst_genes, expected_genes)
+            mlst_type = look_up_mlst("{0}/mlst_db/{1}/{1}.tsv".format(db_dir, species), mlst_genes, expected_genes)
             mlst_type += '+'
         else:
-            mlst_type = look_up_mlst("/opt/lpf_databases/mlst_db/{0}/{0}.tsv".format(species), mlst_genes, expected_genes)
+            mlst_type = look_up_mlst("{0}/mlst_db/{1}/{1}.tsv".format(db_dir, species), mlst_genes, expected_genes)
         if not check_allele_template_coverage:
             mlst_type += '*'
         return mlst_type, expected_genes, list(mlst_genes)
