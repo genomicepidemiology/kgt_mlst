@@ -21,8 +21,6 @@ def main():
     parser = argparse.ArgumentParser(description=description)
     parser.add_argument('-i', action="store", type=str, dest='input', nargs='+',
                         default=None, help='Input file.')
-    parser.add_argument('-res_file', action="store", type=str, dest='res_file',
-                        default=None, help='Kmergenetyper res file.')
     parser.add_argument('-db_dir', action="store", type=str, dest='db_dir',
                         default=None, help='Path to where the kgt_mlst database is located.')
     parser.add_argument('-o', action="store", type=str, dest='output', help='Output directory')
@@ -49,7 +47,8 @@ def download_db(arguments):
                     species, species))
 
     #os.system("wget https://cge.food.dtu.dk/services/MINTyper/bac_species_db kgt_mlst_db/bac_species_db")
-    #os.system("tar -xvzf kgt_mlst_db/bac_species_db -C kgt_mlst_db/bac_species_db")
+    #os.system("tar -xvzf kgt_mlst_db/bac_species_db.tar.gz -C kgt_mlst_db/")
+    #TBD remove .tar.gz
     #Download bac_db
 
 if __name__ == '__main__':

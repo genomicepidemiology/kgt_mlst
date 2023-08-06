@@ -10,6 +10,10 @@ def determine_mlst(arguments):
     header = identify_species.auto_identifiy_species(arguments)
     specie = header.split(" ")[1][0].lower() + header.split(" ")[2].lower()
     input_string = " ".join(arguments.input)
+    if not os.path.exists(arguments.db_dir + '/mlst_db/{0}/{0}.fsa'.format(specie)):
+        print ("Species not found in database")
+        sys.exit()
+    #Cal min depth
     kmergenetyper.kmergenetyperRunner(input_string,
                         arguments.db_dir + '/mlst_db/{0}/{0}'.format(specie),
                         3, #Insert relative min depth

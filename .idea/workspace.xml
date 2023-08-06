@@ -47,7 +47,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1691135418136</updated>
-      <workItem from="1691135419249" duration="8888000" />
+      <workItem from="1691135419249" duration="10151000" />
     </task>
     <servers />
   </component>
@@ -59,7 +59,7 @@
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/kgt_mlst/determine_mlst.py</url>
-          <line>132</line>
+          <line>135</line>
           <option name="timeStamp" value="1" />
         </line-breakpoint>
       </breakpoints>
