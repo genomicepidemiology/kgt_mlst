@@ -12,10 +12,10 @@ def determine_mlst(arguments):
         header, genome_size = identify_species.auto_identifiy_species(arguments)
         arguments.species = header.split(" ")[1][0].lower() + header.split(" ")[2].lower()
     input_string = " ".join(arguments.input)
-    if not os.path.exists(arguments.db_dir + '/mlst_db/{0}/{0}.fsa'.format(arguments.species)):
-        print ("Species not found in database")
-        sys.exit()
     name = arguments.input[0].split('/')[-1].split('.')[0]
+    if not os.path.exists(arguments.db_dir + '/mlst_db/{0}/{0}.fsa'.format(arguments.species)):
+        print (name, arguments.species, "Species not found in database")
+        sys.exit()
     kmergenetyper.kmergenetyperRunner(input_string,
                         arguments.db_dir + '/mlst_db/{0}/{0}'.format(arguments.species),
                         arguments.min_depth, #Insert relative min depth
