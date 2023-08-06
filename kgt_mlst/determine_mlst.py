@@ -21,7 +21,7 @@ def determine_mlst(arguments):
                         arguments.min_depth, #Insert relative min depth
                         arguments.output + '/mlst').run()
     mlst_type = get_mlst_type(arguments, arguments.output + '/mlst/{}.res'.format(name))
-    print (name, mlst_type)
+    print (name, mlst_type, header)
 
 def get_mlst_type(arguments, res_file):
     """Returns the mlst results"""
