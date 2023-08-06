@@ -25,12 +25,10 @@ def determine_mlst(arguments):
 def get_mlst_type(arguments, res_file):
     """Returns the mlst results"""
     mlst_genes, mlst_genes_depths = parse_kma_res_and_depth(res_file)
-    print (mlst_genes)
-    print (mlst_genes_depths)
     mlst_type, expected_genes, st_included_mlst_genes = derive_mlst(
         arguments.species, mlst_genes, mlst_genes_depths, arguments.db_dir)
 
-    print (mlst_type, expected_genes, st_included_mlst_genes)
+    print (mlst_type)
 
 def check_allele_template_coverage(mlst_genes, template_depth, found_genes):
     """
@@ -55,6 +53,7 @@ def derive_mlst(species, found_genes, template_depth, db_dir):
                 line = line.rstrip().split("\t")
                 if line[0] == species:
                     expected_genes = line[2].split(",")
+
     multiple_alelles, multiple_allele_list, mlst_bool, mlst_genes = check_muliple_alelles(found_genes, expected_genes)
 
     if mlst_bool:
@@ -66,22 +65,11 @@ def derive_mlst(species, found_genes, template_depth, db_dir):
             mlst_type += '+'
         else:
             mlst_type = look_up_mlst("{0}/mlst_db/{1}/{1}.tsv".format(db_dir, species), mlst_genes, expected_genes)
-        if not check_allele_template_coverage:
+        if not check_allele_template_coverage(mlst_genes, template_depth, found_genes):
             mlst_type += '*'
         return mlst_type, expected_genes, list(mlst_genes)
     else:
         return 'Unknown ST', expected_genes, []
-
-def derive_mlst_species(reference_header_text, db_dir):
-    specie = reference_header_text.split(' ')[1] + ' ' + reference_header_text.split(' ')[2]
-    mlst_species = reference_header_text.split(' ')[1][0].lower() + reference_header_text.split(' ')[2].lower()
-    with open("/{}/mlst_db/config".format(db_dir), 'r') as infile:
-        for line in infile:
-            if line[0] != "#":
-                line = line.split("\t")
-                if mlst_species == line[0]:
-                    return specie, mlst_species
-    return specie, None
 
 def check_muliple_alelles(found_genes, expected_genes):
     flag = False
