@@ -17,9 +17,8 @@ def determine_mlst(arguments):
     total_bases = 0
     for item in arguments.input:
         total_bases += number_of_bases_in_file(item)
-    print (total_bases)
-    print (genome_size)
     relative_minimum_depth = (total_bases / genome_size) * 0.05
+    print (relative_minimum_depth)
     kmergenetyper.kmergenetyperRunner(input_string,
                         arguments.db_dir + '/mlst_db/{0}/{0}'.format(specie),
                         3, #Insert relative min depth

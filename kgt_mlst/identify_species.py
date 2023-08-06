@@ -15,12 +15,10 @@ def auto_identifiy_species(arguments):
         for line in f:
             if not line.startswith('#'):
                 score = float(line.split('\t')[2])
-                print (score)
                 if score > best_score:
                     best_score = score
                     best_line = line.split('\t')[0]
                     genome_size = int(line.split('\t')[4])
-                    print ('genome', genome_size)
 
     return best_line, genome_size
 
