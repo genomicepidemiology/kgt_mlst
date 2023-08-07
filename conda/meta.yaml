@@ -3,7 +3,7 @@ package:
   version: 1.0.0
 
 source:
-  url: https://github.com/genomicepidemiology/kmergenetyper/archive/refs/tags/v1.0.16.tar.gz #change
+  url: https://github.com/genomicepidemiology/kgt_mslt/archive/refs/tags/v1.0.0.tar.gz
 
 
 build:
@@ -15,12 +15,11 @@ requirements:
   host:
     - python >=3.6
     - pip
-    - kma >=1.4.9
   run:
     - python >=3.6
     - kma >=1.4.9
     - kmergenetyper >=1.0.16
 about:
-  home: https://github.com/genomicepidemiology/kmergenetyper
-  summary: 'Kmergenetyper test.'
+  home: https://github.com/genomicepidemiology/kgt_mlst
+  summary: 'kgt_mlst test.'
   license: Apache-2.0
