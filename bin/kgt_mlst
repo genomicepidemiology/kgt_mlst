@@ -15,17 +15,16 @@ __version__ = version.__version__
 from kgt_mlst import determine_mlst
 
 def main():
-    description = 'K-mer Gene Typer. A tool for accurately typing genes from' \
-                  ' Illumina and Nanopore sequencing data.'
+    description = 'kgt-mlst, a mlst interepter for kmergenetyper results'
 
     parser = argparse.ArgumentParser(description=description)
     parser.add_argument('-i', action="store", type=str, dest='input', nargs='+',
                         default=None, help='Input read file(s).')
     parser.add_argument('-species', action="store", type=str, dest='species',
-                        default=None, help='Input species following this format:'
-                                           ' first letter of the genus and the entire speices all in lower case letters. '
+                        default=None, help='Input species following this format: '
+                                           'the first letter of the genus and the entire species, all in lowercase letters. '
                                            'Example: Escherichia coli should be ecoli. Campylobacter jejuni should be cjejuni. '
-                                           'If not species is given species identification will be run - this requires reference bacterial DB to be downloaded with --download_db.')
+                                           'If no species is given, species identification will be run - this requires downloading the reference bacterial DB with --download_db.')
     parser.add_argument('-db_dir', action="store", type=str, dest='db_dir',
                         default=None, help='Path to where the kgt_mlst database is located.')
     parser.add_argument('-md', action="store", type=int, dest='min_depth',

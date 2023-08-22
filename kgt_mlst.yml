@@ -1,8 +1,8 @@
 channels:
   - conda-forge
+  - genomicepidemiology
   - bioconda
   - defaults
-  - genomicepidemiology
 dependencies:
-  - kma=1.4.9
-  - kmergenetyper=1.1.0
+  - kma>=1.4.9
+  - kmergenetyper>=1.1.20
