@@ -52,8 +52,8 @@ def download_db(arguments):
                 "kma index -i kgt_mlst_db/mlst_db/{0}/{0}.fsa -o kgt_mlst_db/mlst_db/{0}/{0} -m 14".format(
                     species, species))
 
-    os.system("wget https://cge.food.dtu.dk/services/MINTyper/bac_species_db kgt_mlst_db/bac_species_db")
-    os.system("tar -xvzf kgt_mlst_db/bac_species_db.tar.gz -C kgt_mlst_db/")
+    os.system("wget https://cge.food.dtu.dk/services/MINTyper/bac_species_db.tar.gz kgt_mlst_db/bac_species_db.tar.gz")
+    os.system("tar -xvzf kgt_mlst_db/bac_species_db.tar.gz -C kgt_mlst_db/bac_species_db")
     os.system("rm kgt_mlst_db/bac_species_db.tar.gz")
 
 if __name__ == '__main__':
