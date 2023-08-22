@@ -23,10 +23,13 @@ data = {
         "host": [
             "python >=3.6",
             "pip"
+            "kma >=1.4.9",
+            "kmergenetyper >=1.2.0",
         ],
         "run": [
             "python >=3.6",
-            "kma >=1.4.9"
+            "kma >=1.4.9",
+            "kmergenetyper >=1.2.0",
         ]
     },
     "about": {
