@@ -8,7 +8,7 @@ import kgt_mlst.version as version
 
 data = {
     "package": {
-        "name": "kmergenetyper",
+        "name": "kgt_mlst",
         "version": version.__version__
     },
     "source": {
@@ -30,7 +30,7 @@ data = {
         ]
     },
     "about": {
-        "home": "https://github.com/genomicepidemiology/kmergenetyper",
+        "home": "https://github.com/genomicepidemiology/kgt_mlst",
         "summary": "kgt_mlst test.",
         "license": "Apache-2.0"
     }
