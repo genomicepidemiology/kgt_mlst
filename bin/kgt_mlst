@@ -53,7 +53,8 @@ def download_db(arguments):
                     species, species))
 
     os.system("wget https://cge.food.dtu.dk/services/MINTyper/bac_species_db.tar.gz kgt_mlst_db/bac_species_db.tar.gz")
-    os.system("tar -xvzf kgt_mlst_db/bac_species_db.tar.gz -C kgt_mlst_db")
+    os.system("tar -xvzf bac_species_db.tar.gz")
+    os.system("mv bac_species_db kgt_mlst_db/bac_species_db")
     os.system("rm kgt_mlst_db/bac_species_db.tar.gz")
 
 if __name__ == '__main__':
