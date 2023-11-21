@@ -21,7 +21,8 @@ def determine_mlst(arguments):
                         arguments.min_depth, #Insert relative min depth
                         arguments.output + '/mlst').run()
     mlst_type = get_mlst_type(arguments, arguments.output + '/mlst/{}.res'.format(name))
-    with open('{}/mlst.txt'.format(arguments.output), 'w') as f:
+    with open('{}/mlst_results.tsv'.format(arguments.output), 'w') as f:
+        print ('#Sample\tMLST_type\tReference', file=f)
         print (name, mlst_type, header, sep='\t', file=f)
 
 def get_mlst_type(arguments, res_file):
